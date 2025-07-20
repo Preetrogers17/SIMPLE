@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Celebration 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(odd) {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            animation: floatColorful 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(even) {
+            background: linear-gradient(45deg, #48dbfb, #ff9ff3);
+            animation: floatSpiral 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+            25% { transform: translateY(-30px) rotate(90deg); opacity: 1; }
+            50% { transform: translateY(-60px) rotate(180deg); opacity: 0.6; }
+            75% { transform: translateY(-30px) rotate(270deg); opacity: 1; }
+        }
+
+        @keyframes floatColorful {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.7; }
+            33% { transform: translateY(-40px) rotate(120deg) scale(1.2); opacity: 1; }
+            66% { transform: translateY(-20px) rotate(240deg) scale(0.8); opacity: 0.9; }
+        }
+
+        @keyframes floatSpiral {
+            0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg) scale(1); opacity: 0.6; }
+            25% { transform: translateX(30px) translateY(-40px) rotate(90deg) scale(1.3); opacity: 1; }
+            50% { transform: translateX(0px) translateY(-80px) rotate(180deg) scale(0.7); opacity: 0.8; }
+            75% { transform: translateX(-30px) translateY(-40px) rotate(270deg) scale(1.1); opacity: 0.9; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .celebration-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .celebration-header h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 2s ease-in-out infinite, textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 25%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 75%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes textGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.8)); }
+            33% { filter: drop-shadow(0 0 20px rgba(254, 202, 87, 0.8)); }
+            66% { filter: drop-shadow(0 0 15px rgba(72, 219, 251, 0.8)); }
+            100% { filter: drop-shadow(0 0 25px rgba(255, 159, 243, 0.8)); }
+        }
+
+        .celebration-header .emoji {
+            font-size: 3rem;
+            animation: bounce 1.5s infinite, rotate 4s linear infinite;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .celebration-header .emoji:nth-child(odd) {
+            animation: bounce 1.5s infinite, wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-30px) scale(1.1); }
+            60% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-15deg) scale(1.1); }
+            75% { transform: rotate(15deg) scale(0.9); }
+        }
+
+        .timer-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 1s ease-out 0.5s both, containerFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(0.5deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-0.5deg); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .timer-display {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite, shimmer 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: sweep 3s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { border-color: rgba(255, 255, 255, 0.3); }
+            25% { border-color: rgba(255, 107, 107, 0.6); }
+            50% { border-color: rgba(254, 202, 87, 0.6); }
+            75% { border-color: rgba(72, 219, 251, 0.6); }
+        }
+
+        @keyframes sweep {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .time-unit:hover {
+            transform: translateY(-10px) rotate(5deg) scale(1.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .time-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            animation: numberPulse 1s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes numberPulse {
+            0% { transform: scale(1); text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+            100% { transform: scale(1.1); text-shadow: 0 4px 8px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3); }
+        }
+
+        .time-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .birthday-message {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .birthday-message h2 {
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .birthday-message p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .celebration-started {
+            text-align: center;
+            display: none;
+        }
+
+        .celebration-started h1 {
+            font-size: 5rem;
+            color: #fff;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: celebrate 1s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .fireworks {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ff6b6b, #feca57);
+            border-radius: 50%;
+            animation: firework 2s ease-out infinite;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .celebration-header h1 {
+                font-size: 2.5rem;
+            }
+            .timer-display {
+                gap: 15px;
+            }
+            .time-unit {
+                min-width: 80px;
+                padding: 15px;
+            }
+            .time-number {
+                font-size: 2rem;
+            }
+            .birthday-message h2 {
+                font-size: 1.5rem;
+            }
+            .birthday-message p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="celebration-header">
+            <span class="emoji">🎉</span>
+            <h1>Birthday Countdown</h1>
+            <span class="emoji">🎂</span>
+        </div>
+
+        <div class="timer-container" id="timerContainer">
+            <div class="timer-display">
+                <div class="time-unit">
+                    <div class="time-number" id="days">00</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-number" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-number" id="minutes">00</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-number" id="seconds">00</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="birthday-message">
+            <h2>🎈 Get Ready for the Celebration! 🎈</h2>
+            <p>The big day is almost here! Every second brings us closer to an amazing birthday celebration filled with joy, laughter, and unforgettable memories.</p>
+        </div>
+
+        <div class="celebration-started" id="celebrationStarted">
+            <h1>🎉 Happy Birthday Ishika! 🎉</h1>
+            <p style="font-size: 1.5rem; color: #fff; margin-top: 20px;">The celebration has begun! 🎂🎈</p>
+        </div>
+    </div>
+
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            for (let i = 0; i < 80; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 15 + 8 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                // Add some particles with special shapes
+                if (i % 10 === 0) {
+                    particle.style.borderRadius = '0%';
+                    particle.style.transform = 'rotate(45deg)';
+                }
+                if (i % 15 === 0) {
+                    particle.style.borderRadius = '50% 0';
+                }
+                
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Create fireworks effect
+        function createFirework(x, y) {
+            for (let i = 0; i < 20; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'fireworks';
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                // Random colors for fireworks
+                const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd'];
+                const color = colors[Math.random() * colors.length | 0];
+                firework.style.background = `radial-gradient(circle, ${color}, transparent)`;
+                
+                document.body.appendChild(firework);
+                
+                setTimeout(() => {
+                    document.body.removeChild(firework);
+                }, 2000);
+            }
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const targetDate = new Date('July 25, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // Birthday has arrived!
+                document.getElementById('timerContainer').style.display = 'none';
+                document.querySelector('.birthday-message').style.display = 'none';
+                document.getElementById('celebrationStarted').style.display = 'block';
+                
+                // Create continuous fireworks
+                setInterval(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    createFirework(x, y);
+                }, 1000);
+                
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Random fireworks during countdown
+        function randomFireworks() {
+            if (Math.random() < 0.1) { // 10% chance every interval
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createFirework(x, y);
+            }
+        }
+
+        // Initialize
+        createParticles();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        setInterval(randomFireworks, 3000);
+
+        // Add click interaction for fireworks
+        document.addEventListener('click', (e) => {
+            createFirework(e.clientX, e.clientY);
+        });
+    </script>
+</body>
+</html>
